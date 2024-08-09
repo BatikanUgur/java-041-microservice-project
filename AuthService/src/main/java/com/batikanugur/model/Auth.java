@@ -2,6 +2,7 @@ package com.batikanugur.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -20,8 +21,11 @@ public class Auth extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    // @Size(min = 1, max= 50)
     @Column(unique = true, nullable = false)
     private String username;
+//  @Email
+//  @Column(unique = true)
     private String email;
     private String password;
 

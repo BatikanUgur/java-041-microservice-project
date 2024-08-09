@@ -79,6 +79,8 @@ allprojects {
         implementation libs.mapStruct
         annotationProcessor libs.mapStructProcessor
         //  implementation libs.postgreSql
+
+        implementation libs.jwt
     }
 }
 

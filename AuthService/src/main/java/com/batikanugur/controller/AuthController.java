@@ -1,17 +1,26 @@
 package com.batikanugur.controller;
 
+import com.batikanugur.dto.DoLoginrequestDto;
+import com.batikanugur.dto.DoRegisterResponseDto;
+import com.batikanugur.dto.DoRegisterrequestDto;
 import com.batikanugur.model.Auth;
+import com.batikanugur.service.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.batikanugur.constant.EndPoint.*;
+
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthController {
+
+    private final AuthService authService;
+
+    public  AuthController(AuthService authService) {
+        this.authService = authService;
+    }
    /*
     //http://http://localhost:9090/
     @GetMapping("/")
@@ -24,16 +33,21 @@ public class AuthController {
         return "Info: AuthService";
     }
 */
-   @PostMapping("/register")
-    public ResponseEntity<Auth> register(){
-        return null; }
-    @PostMapping("/login")
-    public Auth login(){
-        return null; }
-    @GetMapping("/findAll")
-    public List<Auth> findAll(){
-        return null; }
-    @GetMapping("/getMessage")
+   @PostMapping(ENDPOINT_REGISTER)
+    public ResponseEntity<DoRegisterResponseDto> register(@RequestBody DoRegisterrequestDto dto){
+        return ResponseEntity.ok(authService.doRegister(dto)); }
+    @PostMapping(ENDPOINT_LOGIN)
+    public ResponseEntity<String> login(@RequestBody DoLoginrequestDto dto){
+        return ResponseEntity.ok(authService.doLogin(dto)); }
+ /*   @GetMapping(ENDPOINT_FINDALL)
+    public ResponseEntity<List<Auth>> findAll(){
+        return ResponseEntity.ok(authService.findAll()); }
+*/
+    @GetMapping(ENDPOINT_FINDALL)
+    public ResponseEntity<List<Auth>> findAll(@RequestParam String token){
+        return ResponseEntity.ok(authService.findAll(token)); }
+
+    @GetMapping(ENDPOINT_GETMESSAGE)
     public String getMessage(){
         return null; }
 
